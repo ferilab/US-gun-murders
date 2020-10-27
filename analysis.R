@@ -1,7 +1,10 @@
 library(tidyverse)
-load("murders/rdas/murders.rda")
+load("rdas/murders.rda")
 murders %>% mutate(abb = reorder(abb, rate)) %>%
   ggplot(aes(abb, rate)) +
   geom_bar(width = 0.5, stat = "identity", color = "black") +
+  xlab("State abbreviation") +
+  ylab("Murders per million population") +
+  ggtitle("US Gun Murders by State in 2010")
   coord_flip() +
-  ggsave("murders/figs/barplot.png")
+  ggsave("figs/barplot.png")
