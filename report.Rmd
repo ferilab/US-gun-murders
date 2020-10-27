@@ -1,0 +1,47 @@
+---
+title: "Reports on the US gun murders"
+author: "Fereidoun Mianji"
+date: "10/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+This is a report of 2010 gun murder rates obtained from FBI reports. The data was taken from this url:
+"https://raw.githubusercontent.com/rafalab/dslabs/master/inst/
+extdata/murders.csv" that is wrangled by Rafael Irizarry from the original data available on (https://en.wikipedia.org/wiki/Murder_in_the_united_states_by_state). The following library is used to analyze the data.
+
+```{r loading libs, message=FALSE}
+library(tidyverse)
+```
+
+## Analyzing the murder rate by state
+
+Then the data is wrangled and saved as murders.rda.
+
+```{r calculating the rates}
+murders <- read_csv("data/murders.csv")
+murders <-murders %>% mutate(region = factor(region),
+                             rate = total / population * 10^5)
+save(murders, file = "rdas/murders.rda")
+```
+
+## The plot
+
+The barplot depicting the murder rates in all states was generated using the following code. It shows the significat variability of murder rates by state.
+
+```{r plotting and saving the figure}
+load("rdas/murders.rda")
+murders %>% mutate(abb = reorder(abb, rate)) %>%
+  ggplot(aes(abb, rate)) +
+  geom_bar(width = 0.5, stat = "identity", color = "black") +
+  coord_flip() +
+  ggsave("figs/barplot.png")
+
+```
+
+
