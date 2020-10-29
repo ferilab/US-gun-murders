@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduction
+1. Introduction
 
 This is a report of 2010 gun murder rates obtained from FBI reports. The data was taken from this url:
 "https://raw.githubusercontent.com/rafalab/dslabs/master/inst/
@@ -19,7 +19,7 @@ extdata/murders.csv" that is wrangled by Rafael Irizarry from the original data 
 library(tidyverse)
 ```
 
-## Analyzing the murder rate by state
+2. Analyzing the murder rate by state
 
 Then the data is wrangled and saved as murders.rda.
 
@@ -30,9 +30,9 @@ murders <-murders %>% mutate(region = factor(region),
 save(murders, file = "rdas/murders.rda")
 ```
 
-## The plot
+3. The safets states in terms of gun murder.
 
-The barplot depicting the murder rates in all states was generated using the following code. It shows the significat variability of murder rates by state.
+The barplot depicting the murder rates in all states was generated using the following code. It shows the significat variability of murder rates by state and helps to find the safest states in this regard.
 
 ```{r plotting and saving the figure}
 load("rdas/murders.rda")
